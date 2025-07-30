@@ -44,13 +44,13 @@ class HealthcareAssessment {
     }
   }
 
-  async submitAssessment(analysis) {
+  async submitAssessment(submissionData) {
     try {
       Logger.info('Submitting assessment...');
       const result = await this.apiClient.submitAssessment(
-        analysis.highRiskPatients,
-        analysis.feverPatients,
-        analysis.dataQualityIssues
+        submissionData.high_risk_patients,
+        submissionData.fever_patients,
+        submissionData.data_quality_issues
       );
       
       Logger.success('Submission successful!');
@@ -91,7 +91,7 @@ async function main() {
   const results = await assessment.run();
   
   // Uncomment the line below to actually submit the assessment
-  // await assessment.submitAssessment(results);
+  await assessment.submitAssessment(results);
 }
 
 // Only run if this file is executed directly

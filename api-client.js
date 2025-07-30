@@ -76,11 +76,16 @@ class HealthcareAPIClient {
       data_quality_issues: dataQualityIssues
     };
 
+    Logger.debug(`Submitting payload: ${JSON.stringify(payload, null, 2)}`);
+
     try {
       const response = await this.client.post(API_CONFIG.ENDPOINTS.SUBMIT_ASSESSMENT, payload);
       return response.data;
     } catch (error) {
       Logger.error(`Error submitting assessment: ${error.response?.data || error.message}`);
+      if (error.response?.data) {
+        Logger.debug(`Response data: ${JSON.stringify(error.response.data, null, 2)}`);
+      }
       throw error;
     }
   }
